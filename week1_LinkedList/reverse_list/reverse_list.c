@@ -6,6 +6,10 @@ typedef struct _ListNode {
 	struct _ListNode* next;
 } ListNode;
 
+
+/*
+非递归版本
+*/
 ListNode* reverseList(ListNode *head) {
 	if (head==NULL)
 		return NULL;
@@ -18,6 +22,19 @@ ListNode* reverseList(ListNode *head) {
 		curr = prev->next;
 	}
 	return head;
+}
+
+/*
+递归版本
+*/
+ListNode* reverseList2(ListNode* head){
+    //此处的条件不能写成if(head == NULL)
+    if (head == NULL || head->next == NULL) return head;
+    ListNode *newhead = reverseList(head->next);
+    head->next->next = head;
+    head->next = NULL;
+
+    return newhead;
 }
 
 
@@ -48,7 +65,8 @@ int main(int argc, char const *argv[])
 	print_list(&a);
 
 	//ListNode* ret = reverse_list(&a);
-	ListNode* ret = reverseList(&a);
+	// ListNode* ret = reverseList(&a);
+	ListNode* ret = reverseList2(&a);
 
 	print_list(ret);
 
