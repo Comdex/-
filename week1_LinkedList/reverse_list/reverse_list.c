@@ -6,23 +6,21 @@ typedef struct _ListNode {
 	struct _ListNode* next;
 } ListNode;
 
-ListNode* reverse_list(ListNode *head) {
+ListNode* reverseList(ListNode *head) {
+	if (head==NULL)
+		return NULL;
 	ListNode* prev = head;
 	ListNode* curr = head->next;
-	ListNode* next = NULL;
-	while(curr->next != NULL) {
-		next = curr->next;
-		prev->next = NULL;
-		curr->next = prev;
-		prev = curr;
-		curr = next;
+	while(curr) {
+		prev->next = curr->next;
+		curr->next = head;
+		head = curr;
+		curr = prev->next;
 	}
-
-	curr->next = prev;
-	head->next = NULL;
-
-	return next;
+	return head;
 }
+
+
 
 void print_list(ListNode *head) {
 	do {
@@ -49,7 +47,8 @@ int main(int argc, char const *argv[])
 
 	print_list(&a);
 
-	ListNode* ret = reverse_list(&a);
+	//ListNode* ret = reverse_list(&a);
+	ListNode* ret = reverseList(&a);
 
 	print_list(ret);
 
